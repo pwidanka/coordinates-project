@@ -1,0 +1,39 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '5px' }"></ngx-loading>
+<div class="container-fluid navigation">
+  <!-- <div class="row nav center">
+    <a class="navbar-brand" href="https://www.solwit.com" target="_blank">
+      <img src="https://uploads-ssl.webflow.com/58d507c961c9af590f6532e8/58d518082da455e440a552ee_logo-solwit.svg" width="220" height="35" alt="Solwit">
+    </a>
+    <div class="">Zadanie rekrutacyjne </div>
+  </div> -->
+  <div class="container">
+    <h2 class="col-xl-6 offset-xl-3 col-md-10 offset-md-1 col-12">
+      Aplikacja do wyświetlania średniej temperatury danego obszaru.
+    </h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-12">
+        <form class="form-style" (ngSubmit)="zapisz(f) && f.form.valid" #f="ngForm" novalidate>
+          <div class="form-group">
+            <label for="latitude" placement="top" ngbTooltip="Liczba od -90 od 90, gdzie minus oznacza kierunek południowy, a plus północny">Szerokość geograficzna: 
+              <sup><i class="fa fa-question-circle"></i></sup>
+            </label>
+            <input type="number" class="form-control" autocomplete="off" id="latitude" placeholder="Podaj szerokość" name="lat" ngModel #lat="ngModel" required [customMin]="minNumLat" [customMax]="maxNumLat">
+            <small *ngIf="f.submitted && lat.errors && !isValidFormSubmitted" class="help-block" style="color: #c20a0a">Szerokość geograficzna powinna wynosić od {{minNumLat}} do {{ maxNumLat }}</small>
+          </div>
+          <div class="form-group">
+            <label for="longitude" placement="top" ngbTooltip="Liczba od -180 od 180, gdzie minus oznacza kierunek zachodni, a plus wschodni">Długość geograficzna: 
+              <sup><i class="fa fa-question-circle" ></i></sup
+            ></label>
+            <input type="number" class="form-control" autocomplete="off" id="longitude" placeholder="Podaj długość" name="lon" ngModel #lon="ngModel" required [customMin]="minNumLon" [customMax]="maxNumLon">
+            <small *ngIf="f.submitted && lon.errors && !isValidFormSubmitted" class="help-block" style="color: #c20a0a">Długość geograficzna powinna wynosić od {{minNumLon}} do {{ maxNumLon }}</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Sprawdź</button>
+        </form>
+      </div>
+
+      <div *ngIf="showTemperature" class="col-12 text-center">
+        Temperatura obszaru {{data.name}} o szerokości {{data.coord.lat}} i długości {{data.coord.lon}} wynosi: {{temperature}} &#8451;
+      </div>
+    </div>
+  </div>
+</div>
